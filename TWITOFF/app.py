@@ -7,7 +7,6 @@ from .models import DB
 def create_app():
     app = Flask(__name__)
 
-
     # add our config
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 
