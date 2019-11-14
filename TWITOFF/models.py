@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 # import database. capital for global scope
 DB = SQLAlchemy()
 
+
 class User(DB.Model):
     """ Twitter users we analyze"""
     id = DB.Column(DB.BigInteger, primary_key=True)
@@ -15,6 +16,7 @@ class User(DB.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.name)
+
 
 class Tweet(DB.Model):
     """The user's tweets from twitter"""

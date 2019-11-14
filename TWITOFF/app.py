@@ -30,12 +30,12 @@ def create_app():
         return render_template('base.html', title='Home', users=users)
 
     # adding in a new route to add users or get users
-    @app.route('/user', methods=['POST']) # uses form
-    @app.route('/user/<name>', methods=['GET']) # needs parameter
+    @app.route('/user', methods=['POST'])  # uses form
+    @app.route('/user/<name>', methods=['GET'])  # needs parameter
     def user(name=None, message=''):
         # add this line in last:
         name = name or request.values['user_name']
-        #import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         try:
             if request.method == 'POST':
                 add_or_update_user(name)
@@ -45,7 +45,7 @@ def create_app():
             message = "Error adding {}: {}".format(name, e)
             tweets = []
         return render_template('user.html', title=name, tweets=tweets,
-                                message=message)
+                               message=message)
 
     # adding in a route for predictions
     @app.route('/compare', methods=['POST'])
@@ -55,15 +55,17 @@ def create_app():
         if user1 == user2:
             message = 'Cannot compare a user to themselves'
         else:
-            prediction = predict_user(user1, user2, request.values['tweet_text'])
-            # prediction = predict_user(user1, user2, request.values['tweet_text'], CACHE)
+            prediction = predict_user(user1, user2,
+                                      request.values['tweet_text'])
+            # prediction = predict_user(user1, user2,
+            #    request.values['tweet_text'], CACHE)
             # CACHED_COMPARISONS.add((user1,user2))
             # CACHE.set('comparisons', dumps(CACHED_COMPARISONS))
             message = '"{}" is more likely to be said by {} than {}'.format(
                 request.values['tweet_text'], user1 if prediction else user2,
                 user2 if prediction else user1)
-        return render_template('prediction.html', title='Prediction', message=message)
-
+        return render_template('prediction.html', title='Prediction',
+                               message=message)
 
     @app.route('/reset')
     def reset():
