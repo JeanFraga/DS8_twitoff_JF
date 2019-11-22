@@ -15,7 +15,7 @@ def predict_user(user1_name, user2_name, tweet_text, cache=None):
     """
     user_set = pickle.dumps((user1_name, user2_name))
     if cache and cache.exists(user_set):
-        log_reg = pickle.loads(cache.get(use_set))
+        log_reg = pickle.loads(cache.get(user_set))
     else:
         # get the users
         user1 = User.query.filter(User.name == user1_name).one()
